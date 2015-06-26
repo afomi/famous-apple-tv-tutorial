@@ -10,3 +10,13 @@ var images = [
     'http://demo.famo.us.s3.amazonaws.com/hub/apps/carousel/Museo_del_Prado_-_Goya_-_Caprichos_-_No._10_-_El_amor_y_la_muerte_thumb.jpg',
     'http://demo.famo.us.s3.amazonaws.com/hub/apps/carousel/Museo_del_Prado_-_Goya_-_Caprichos_-_No._11_-_Muchachos_al_avC3ADo_thumb.jpg'
 ];
+
+var contextSize = window.innerHeight;
+
+function randomCoordinates(images) {
+  var result = [];
+  for(var i = 0; i < images.length; i++) {
+    result.push(Math.floor(contextSize/2 + 100 + Math.random() * contextSize * 2))
+  }
+  return result;
+}

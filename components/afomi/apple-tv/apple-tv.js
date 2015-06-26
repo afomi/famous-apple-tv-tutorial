@@ -16,7 +16,7 @@ FamousFramework.component('afomi:apple-tv', {
         'background-color': 'red'
       },
       'rotation': function(rotationValue) {
-        return [-Math.PI/2.3, 0, rotationValue]
+        return [-Math.PI/2.1, 0, rotationValue]
       }
     },
     '.gallery-item': {
@@ -43,12 +43,27 @@ FamousFramework.component('afomi:apple-tv', {
       'rotation': [Math.PI/2, 0, 0]
     }
   },
-  events: {},
+  events: {
+    '$lifecycle': {
+      'post-load': function($state, $famousNode) {
+        var id = $famousNode.addComponent({
+          onUpdate: function(time) {
+            for(var i = 0; i < $state.get("srcs").length; i++) {
+              var currentZ = $state.get(['positionZ', i]);
+              $state.set(['positionZ', i], currentZ - 1);
+            }
+            $famousNode.requestUpdateOnNextTick(id);
+          }
+        });
+        $famousNode.requestUpdateOnNextTick(id);
+      }
+    }
+  },
   states: {
     rotationValue: 0,
     srcs: images,
-    contextSize: 500,
-    positionZ: []
+    contextSize: contextSize,
+    positionZ: randomCoordinates(images)
   },
   tree: 'apple-tv.html'
 }).config({
