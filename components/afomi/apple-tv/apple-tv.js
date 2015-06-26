@@ -16,7 +16,7 @@ FamousFramework.component('afomi:apple-tv', {
         'background-color': 'red'
       },
       'rotation': function(rotationValue) {
-        return [-Math.PI/2.1, 0, rotationValue]
+        return [-Math.PI/2.3, 0, rotationValue]
       }
     },
     '.gallery-item': {
