@@ -12,11 +12,11 @@ FamousFramework.component('afomi:apple-tv', {
       'align': [0.5, 0.5],
       'mount-point': [0.5, 0.5],
       'origin': [0.5, 0.5],
-      'style': {
-        'background-color': 'red'
-      },
       'rotation': function(rotationValue) {
-        return [-Math.PI/2.1, 0, rotationValue]
+        return [-Math.PI/2, 0, rotationValue]
+      },
+      'position-z': function(rootZ) {
+        return rootZ;
       }
     },
     '.gallery-item': {
@@ -51,7 +51,7 @@ FamousFramework.component('afomi:apple-tv', {
             for(var i = 0; i < $state.get("srcs").length; i++) {
               var currentZ = $state.get(['positionZ', i]);
               if(currentZ < -$state.get("contextSize")) {
-                currentZ = $state.get("contextSize") + 100;
+                currentZ = $state.get("contextSize") / 1.5 + 100;
               }
               $state.set(['positionZ', i], currentZ - 1);
             }
@@ -60,13 +60,33 @@ FamousFramework.component('afomi:apple-tv', {
         });
         $famousNode.requestUpdateOnNextTick(id);
       }
+    },
+    '.gallery-item': {
+      'click': function($state) {
+        $state.set('rotationValue', $state.get("rotationValue") - Math.PI / 2, {
+          duration: 1000,
+          curve: 'easeIn'
+        }).thenSet('rotationValue', $state.get("rotationValue") - (Math.PI * 2), {
+          duration: 2000,
+          curve: 'easeOut'
+        });
+
+        $state.set('rootZ', -500, {
+          duration: 1000,
+          curve: 'easeOut'
+        }).thenSet('rootZ', 0, {
+          duration: 2000,
+          curve: 'easeInOut'
+        });
+      }
     }
   },
   states: {
-    rotationValue: 0,
-    srcs: images,
     contextSize: contextSize,
-    positionZ: randomCoordinates(images)
+    positionZ: randomCoordinates(images),
+    rootZ: 0,
+    rotationValue: 0,
+    srcs: images
   },
   tree: 'apple-tv.html'
 }).config({
