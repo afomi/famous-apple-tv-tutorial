@@ -50,6 +50,9 @@ FamousFramework.component('afomi:apple-tv', {
           onUpdate: function(time) {
             for(var i = 0; i < $state.get("srcs").length; i++) {
               var currentZ = $state.get(['positionZ', i]);
+              if(currentZ < -$state.get("contextSize")) {
+                currentZ = $state.get("contextSize") + 100;
+              }
               $state.set(['positionZ', i], currentZ - 1);
             }
             $famousNode.requestUpdateOnNextTick(id);
