@@ -25,6 +25,9 @@ FamousFramework.component('afomi:apple-tv', {
         'background-color': 'blue',
         'border': '2px solid black'
       },
+      'content': function($index, srcs) {
+        return `<img src="${ srcs[$index] }" style="height: 100px; width: 100px;" />`
+      },
       '$repeat': function (srcs) {
         return srcs;
       },
@@ -43,9 +46,13 @@ FamousFramework.component('afomi:apple-tv', {
   events: {},
   states: {
     rotationValue: 0,
-    srcs: [1, 2, 3, 4],
+    srcs: images,
     contextSize: 500,
     positionZ: []
   },
   tree: 'apple-tv.html'
+}).config({
+  includes: [
+    'data.js'
+  ]
 });
