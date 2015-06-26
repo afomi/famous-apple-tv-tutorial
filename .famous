@@ -1,0 +1,1 @@
+{"scripts":{"deploy-folder":"public/afomi:apple-tv","deploy":[["run","snapshot-component","--","-n","afomi:apple-tv"]],"setup":[["install"],["run","local-only-bootstrap","--","--watchAfterBuild=no"]]}}
